@@ -1,0 +1,25 @@
+{
+  "name": "mongo-training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@graphql-tools/schema": "^9.0.12",
+    "apollo-server": "^3.11.1",
+    "csv-parser": "^3.0.0",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.0.3",
+    "fast-csv": "^4.3.6",
+    "graphql-scalars": "^1.20.1",
+    "mongoose": "^6.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.30.0"
+  }
+}
