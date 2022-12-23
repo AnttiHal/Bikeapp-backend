@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client'
-import { useState } from 'react'
 import './App.css'
 import JourneyList from './components/JourneyList'
 import StationList from './components/StationList'

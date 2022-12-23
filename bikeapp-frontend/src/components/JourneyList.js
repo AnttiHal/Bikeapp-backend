@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client"
 import { ALL_JOURNEYS_WITH_LIMIT, JOURNEY_COUNT } from "../queries"
 
 const JourneyList = () => {
+  // eslint-disable-next-line no-unused-vars
   const [limit, setLimit] = useState(100)
   const [offset, setOffset] = useState(0)
   const count = useQuery(JOURNEY_COUNT)
