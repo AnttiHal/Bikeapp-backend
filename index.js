@@ -1,10 +1,17 @@
-const { ApolloServer, gql } = require('apollo-server')
+import { ApolloServer } from '@apollo/server'
+import {mongoose} from 'mongoose'
+import Journey from './models/journey.mjs'
+import Station from './models/station.mjs'
+import * as dotenv from 'dotenv'
+dotenv.config()
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
+import express from 'express';
+import http from 'http';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import { makeExecutableSchema } from '@graphql-tools/schema'
 
-const mongoose = require('mongoose')
-const Journey = require('./models/journey')
-const Station = require('./models/station')
-require('dotenv').config()
-const { makeExecutableSchema } = require('@graphql-tools/schema')
 
 
 
@@ -19,7 +26,7 @@ mongoose.connect(MONGO_URI)
     console.log('error connection to MongoDB:', error.message)
   })
 
-const typeDefs = gql` 
+const typeDefs = `#graphql 
 scalar DateTime
 type Journey {
   _id: ID!
@@ -95,13 +102,25 @@ const resolvers = {
   },   
 }
 
+const app = express();
+const httpServer = http.createServer(app);
+
+
 const server = new ApolloServer({
   schema: makeExecutableSchema({
     typeDefs,
-    resolvers
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   }),
 })
+await server.start()
 
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`)
-})
+app.use(
+  cors(),
+  express.static('build'),
+  bodyParser.json(),
+  expressMiddleware(server)
+)
+
+await new Promise((resolve) => httpServer.listen({ port: process.env.PORT || 4000 }, resolve));
+console.log(`🚀 Server ready at http://localhost:4000`);
