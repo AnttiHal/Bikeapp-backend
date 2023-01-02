@@ -1,4 +1,4 @@
-# BackEnd for Bike App
+#  Bike App (react/node/mongo/express/GraphQL)
 
 App is deployed in https://silent-night-7313.fly.dev/
 ## To run project locally
