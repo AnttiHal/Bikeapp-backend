@@ -1,19 +1,19 @@
-const Journey = require('./models/journey')
-const Station = require('./models/station')
-const csv = require('fast-csv')// parses CSV files
-const fs = require('fs')
-const path = require('path')
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-dotenv.config();
-
-const journeys = []
-const stations = []
-  
+import Journey from './models/journey.mjs'
+import Station from './models/station.mjs'
+import { parse } from 'fast-csv'// parses CSV files
+import * as fs from 'fs'
+import * as path from 'path'
+import mongoose from 'mongoose'
+import { config } from 'dotenv'
+import { fileURLToPath } from 'url';
+config();
 
 const main = async () => {
-  // connect to db
-  const mongoose = require('mongoose');
+  const journeys = []
+const stations = []
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+  // connect to database
   const mongoDB = process.env.MONGO_URI;
   mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
   const db = mongoose.connection;
@@ -40,9 +40,9 @@ const main = async () => {
   ]
 
   //read journeys
-  /*
-  fs.createReadStream(path.join(__dirname, '2021-05.csv'))
-  .pipe(csv.parse({ 
+  
+  fs.createReadStream(path.join(__dirname, '2021-07.csv'))
+  .pipe(parse({ 
     delimiter: ',', 
     headers: [ 
       'departure', 
@@ -72,9 +72,9 @@ const main = async () => {
   console.log(`${journeys.length} journeys have been successfully uploaded.`);
   return;
   });     
-  */
+  
   // read stations
-  fs.createReadStream(path.join(__dirname, 'stations.csv'))
+  /*fs.createReadStream(path.join(__dirname, 'stations.csv'))
   .pipe(csv.parse({ 
     delimiter: ';', 
     headers: [ 
@@ -100,7 +100,7 @@ const main = async () => {
   });
   console.log(`${stations.length} stations have been successfully uploaded.`);
   return;
-  });     
+  });    */ 
 }
 
 

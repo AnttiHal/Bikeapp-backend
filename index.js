@@ -75,7 +75,8 @@ const resolvers = {
         return (
           await Journey.find({})
             .limit(args.limit)
-            .skip(args.offset).sort({departure_station_name:1})
+            .skip(args.offset)
+            .sort({duration:1})
         )
       }
       Journey.find({})   

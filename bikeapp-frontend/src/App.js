@@ -13,13 +13,8 @@ import {
 
 
   const App = () => {
-    
-    
     const count = useQuery(JOURNEY_COUNT)
     const allStations = useQuery(ALL_STATIONS)
-    
-    
-  
     
     if (count.loading || allStations.loading )  {
       return <div>loading...</div>
