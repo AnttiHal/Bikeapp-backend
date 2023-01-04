@@ -7,7 +7,9 @@ import JourneyTable from "./JourneyTable"
 const FindJourneyForm = () => {
   // eslint-disable-next-line no-unused-vars
   const [limit, setLimit] = useState(100)
+  // eslint-disable-next-line no-unused-vars
   const [offset, setOffset] = useState(0)
+  // eslint-disable-next-line no-unused-vars
   const [sort, setSort] = useState('departure_station_name')
   const [departureStationNameToSearch, setDepartureStationNameToSearch] = useState('')
   const [journeys, setJourneys] = useState([])
