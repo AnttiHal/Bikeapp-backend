@@ -3,14 +3,6 @@ import { useQuery } from "@apollo/client"
 import { ALL_JOURNEYS_WITH_LIMIT, JOURNEY_COUNT } from "../queries"
 import JourneyTable from "./JourneyTable"
 
-const Button = (props) => {
-  return (
-    <button onClick={() => {    
-      props.setSort(props.text)
-      }}>props.text
-    </button>
-  )
-}
 
 const JourneyList = () => {
   // eslint-disable-next-line no-unused-vars
