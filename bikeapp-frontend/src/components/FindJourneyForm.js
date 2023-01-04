@@ -42,6 +42,7 @@ const FindJourneyForm = () => {
           }}>Clear</button>
       </form>
       <h2>Journeys</h2>
+      
       <JourneyTable result={journeys}/>
 </div>
   )
