@@ -1,26 +1,25 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useQuery } from "@apollo/client"
-import { ALL_JOURNEYS_WITH_LIMIT, JOURNEY_COUNT } from "../queries"
-
+import { ALL_JOURNEYS_WITH_LIMIT, JOURNEY_COUNT, FIND_JOURNEYS_BY_DEPARTURE_STATION_NAME } from "../queries"
 
 
 const JourneyList = () => {
   // eslint-disable-next-line no-unused-vars
   const [limit, setLimit] = useState(100)
   const [offset, setOffset] = useState(0)
+  const [sort, setSort] = useState('departure_station_name')
+  const [direction, setDirection] = useState(1)
   
   const count = useQuery(JOURNEY_COUNT)
   const result = useQuery(ALL_JOURNEYS_WITH_LIMIT, {
-    variables: { limit, offset},
+    variables: { limit, offset, sort, direction},
     skip: !limit && !offset
-    
   })
 
-  
-
-  if (result.loading || count.loading )  {
+  if (result.loading || count.loading  )  {
     return <div>loading...</div>
   }
+
   return (
     <div>
       <h2>Journeys in the database: {count.data.journeyCount}</h2>
@@ -35,9 +34,36 @@ const JourneyList = () => {
       </button>
       <button onClick={() => {    
         setOffset(0)
-        }}>Palaa alkuun
+        }}>back to start
       </button>
       <h2>Journeys</h2>
+      <h3>Sort</h3>
+      <button onClick={() => {    
+        setSort('departure_station_name')
+        }}>By departure station name
+      </button>
+      <button onClick={() => {    
+        setSort('return_station_name')
+        }}>By departure station name
+      </button>
+      <button onClick={() => {    
+        setSort('covered_distance_m')
+        }}>by distance
+      </button>
+      <button onClick={() => {    
+        setSort('duration_sec')
+        }}>by duration
+      </button>
+      <div>
+      <button onClick={() => {    
+        setDirection(1)
+        }}>ascending
+      </button>
+      <button onClick={() => {    
+        setDirection(-1)
+        }}>descending
+      </button>
+      </div>
       <table>
       <tbody>
         <tr>
