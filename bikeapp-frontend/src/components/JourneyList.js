@@ -1,7 +1,16 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useQuery } from "@apollo/client"
-import { ALL_JOURNEYS_WITH_LIMIT, JOURNEY_COUNT, FIND_JOURNEYS_BY_DEPARTURE_STATION_NAME } from "../queries"
+import { ALL_JOURNEYS_WITH_LIMIT, JOURNEY_COUNT } from "../queries"
+import JourneyTable from "./JourneyTable"
 
+const Button = (props) => {
+  return (
+    <button onClick={() => {    
+      props.setSort(props.text)
+      }}>props.text
+    </button>
+  )
+}
 
 const JourneyList = () => {
   // eslint-disable-next-line no-unused-vars
@@ -44,7 +53,7 @@ const JourneyList = () => {
       </button>
       <button onClick={() => {    
         setSort('return_station_name')
-        }}>By departure station name
+        }}>By return station name
       </button>
       <button onClick={() => {    
         setSort('covered_distance_m')
@@ -64,27 +73,7 @@ const JourneyList = () => {
         }}>descending
       </button>
       </div>
-      <table>
-      <tbody>
-        <tr>
-          <th>Departure station</th>
-          <th>Return station</th>
-          <th>Distance (km)</th>
-          <th>Duration </th>
-        </tr>
-        
-        {result.data.allJourneys.map((p) => {
-        return (
-          <tr key={p._id}>
-            <td>{p.departure_station_name}</td>
-            <td>{p.return_station_name}</td>
-            <td>{(p.covered_distance_m/1000).toFixed(2)}km</td>
-            <td>{Math.floor(p.duration_sec/60)}min{p.duration_sec % 60}s</td>
-          </tr>
-        )
-})}
-      </tbody>
-    </table>
+      <JourneyTable result={result.data.allJourneys}/>
 </div>
   )
 }

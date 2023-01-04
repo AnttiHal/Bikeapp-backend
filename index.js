@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 import { ApolloServer } from '@apollo/server'
 import {mongoose} from 'mongoose'
 import Journey from './models/journey.mjs'
@@ -69,7 +70,8 @@ type Journey {
 
 const resolvers = {
   Query: {
-    journeyCount: async () => Journey.collection.countDocuments(),
+    journeyCount: async (root, args) => {
+    },
     JourneyCountFromCertainStation: async (root, args) => {
       if (args.departure_station_name) {
         return Journey.collection.countDocuments({departure_station_name: args.departure_station_name })
