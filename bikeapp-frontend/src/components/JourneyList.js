@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useQuery } from "@apollo/client"
 import { ALL_JOURNEYS_WITH_LIMIT, JOURNEY_COUNT } from "../queries"
 import JourneyTable from "./JourneyTable"
+import ButtonGroup from "./ButtonGroup"
 
 
 const JourneyList = () => {
@@ -17,14 +18,6 @@ const JourneyList = () => {
     skip: !limit && !offset
   })
 
-  const Button = ({text, setValue, value}) => {
-    const handleClick = () => {
-      setValue(value)
-    }
-    return (
-      <button onClick={handleClick}>{text}</button>
-    )
-  }
 
   if (result.loading || count.loading  )  {
     return <div>loading...</div>
@@ -48,40 +41,7 @@ const JourneyList = () => {
       </button>
       <h2>Journeys</h2>
       <h3>Sort</h3>
-      <div>
-        <Button 
-          text='By departure station name' 
-          setValue={setSort} 
-          value='departure_station_name'
-        />
-        <Button 
-          text='By return station name' 
-          setValue={setSort} 
-          value='return_station_name'
-        />
-        <Button 
-          text='By distance' 
-          setValue={setSort} 
-          value='covered_distance_m'
-        />
-        <Button 
-          text='By duration' 
-          setValue={setSort} 
-          value='duration_sec'
-        />
-      </div>
-      <div>
-        <Button 
-          text='ascending' 
-          setValue={setDirection} 
-          value={1}
-        />
-        <Button 
-          text='descending' 
-          setValue={setDirection} 
-          value={-1}
-        />
-      </div>
+      <ButtonGroup setSort={setSort} setDirection={setDirection}/>
       <JourneyTable result={result.data.allJourneys}/>
 </div>
   )

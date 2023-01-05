@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client"
 import { FIND_JOURNEYS_BY_DEPARTURE_STATION_NAME, JOURNEY_COUNT_FROM_CERTAIN_STATION } from "../queries"
 import JourneyTable from "./JourneyTable"
 import FindJourneyForm from "./FindJourneyForm"
+import ButtonGroup from "./ButtonGroup"
 
 
 const FindJourneyView = () => {
@@ -12,6 +13,8 @@ const FindJourneyView = () => {
   const [offset, setOffset] = useState(0)
   // eslint-disable-next-line no-unused-vars
   const [sort, setSort] = useState('departure_station_name')
+  // eslint-disable-next-line no-unused-vars
+  const [direction, setDirection] = useState(1)
   const [departureStationNameToSearch, setDepartureStationNameToSearch] = useState('')
   const [stationNameToSearch, setStationNameToSearch] = useState('')
   const [journeys, setJourneys] = useState([])
@@ -21,7 +24,7 @@ const FindJourneyView = () => {
     skip: stationNameToSearch
   })
   const journeysByName = useQuery(FIND_JOURNEYS_BY_DEPARTURE_STATION_NAME, {
-    variables: { departureStationNameToSearch, limit, offset, sort },
+    variables: { departureStationNameToSearch, limit, offset, sort, direction },
     skip: !departureStationNameToSearch
   })
 
@@ -46,7 +49,6 @@ const FindJourneyView = () => {
     return (
       <div>loading...</div>
     )
-    
   }
   return (
     <div>  
@@ -57,7 +59,6 @@ const FindJourneyView = () => {
         departureStationNameToSearch={departureStationNameToSearch}
       />
       <h2>Journeys</h2>
-      <p>{count.data.JourneyCountFromCertainStation}</p>
       <JourneyTable result={journeys}/>
 </div>
   )

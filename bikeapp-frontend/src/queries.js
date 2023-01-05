@@ -33,11 +33,19 @@ export const JOURNEY_COUNT_FROM_CERTAIN_STATION = gql`
 `
 
 export const FIND_JOURNEYS_BY_DEPARTURE_STATION_NAME = gql`
-  query($departureStationNameToSearch: String, $limit: Int, $offset: Int){
+  query(
+    $departureStationNameToSearch: String, 
+    $limit: Int, 
+    $offset: Int
+    $sort: String, 
+    $direction: Int
+    ){
     findJourneysByDepartureStationName(
       departure_station_name: $departureStationNameToSearch, 
       limit: $limit, 
-      offset: $offset
+      offset: $offset,
+      sort: $sort
+      direction: $direction
       ) {
       _id
       departure_station_name

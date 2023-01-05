@@ -51,7 +51,13 @@ type Journey {
 
   type Query {
     journeyCount: Int!
-    findJourneysByDepartureStationName(departure_station_name: String, offset: Int, limit: Int): [Journey!]!
+    findJourneysByDepartureStationName(
+      departure_station_name: String, 
+      offset: Int, 
+      limit: Int,
+      sort: String,
+      direction: Int
+      ): [Journey!]!
     JourneyCountFromCertainStation(departure_station_name: String, return_station_name: String): Int!
     allJourneys(
       offset: Int, 
@@ -95,6 +101,7 @@ const resolvers = {
         await Journey.find({departure_station_name: args.departure_station_name})
           .limit(args.limit)
           .skip(args.offset)
+          .sort({[args.sort]:[args.direction]})
       )
     },
     findJourney: async (root, args) => {
