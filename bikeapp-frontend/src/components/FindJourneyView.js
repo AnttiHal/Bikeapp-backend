@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client"
 import { FIND_JOURNEYS_BY_DEPARTURE_STATION_NAME, JOURNEY_COUNT_FROM_CERTAIN_STATION } from "../queries"
 import JourneyTable from "./JourneyTable"
 import FindJourneyForm from "./FindJourneyForm"
-import ButtonGroup from "./ButtonGroup"
+
 
 
 const FindJourneyView = () => {
