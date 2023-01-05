@@ -17,6 +17,15 @@ const JourneyList = () => {
     skip: !limit && !offset
   })
 
+  const Button = ({text, setValue, value}) => {
+    const handleClick = () => {
+      setValue(value)
+    }
+    return (
+      <button onClick={handleClick}>{text}</button>
+    )
+  }
+
   if (result.loading || count.loading  )  {
     return <div>loading...</div>
   }
@@ -39,31 +48,39 @@ const JourneyList = () => {
       </button>
       <h2>Journeys</h2>
       <h3>Sort</h3>
-      <button onClick={() => {    
-        setSort('departure_station_name')
-        }}>By departure station name
-      </button>
-      <button onClick={() => {    
-        setSort('return_station_name')
-        }}>By return station name
-      </button>
-      <button onClick={() => {    
-        setSort('covered_distance_m')
-        }}>by distance
-      </button>
-      <button onClick={() => {    
-        setSort('duration_sec')
-        }}>by duration
-      </button>
       <div>
-      <button onClick={() => {    
-        setDirection(1)
-        }}>ascending
-      </button>
-      <button onClick={() => {    
-        setDirection(-1)
-        }}>descending
-      </button>
+        <Button 
+          text='By departure station name' 
+          setValue={setSort} 
+          value='departure_station_name'
+        />
+        <Button 
+          text='By return station name' 
+          setValue={setSort} 
+          value='return_station_name'
+        />
+        <Button 
+          text='By distance' 
+          setValue={setSort} 
+          value='covered_distance_m'
+        />
+        <Button 
+          text='By duration' 
+          setValue={setSort} 
+          value='duration_sec'
+        />
+      </div>
+      <div>
+        <Button 
+          text='ascending' 
+          setValue={setDirection} 
+          value={1}
+        />
+        <Button 
+          text='descending' 
+          setValue={setDirection} 
+          value={-1}
+        />
       </div>
       <JourneyTable result={result.data.allJourneys}/>
 </div>

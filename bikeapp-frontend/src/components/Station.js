@@ -13,16 +13,24 @@ L.Icon.Default.mergeOptions({
 const Station = ({station, countFromStation, onClose, countToStation}) => {
 
   const position = [station.y, station.x]
+  const headers = [
+    'Station name',
+    'Address',
+    'Journeys started from station',
+    'Journeys ended to station',
+  ]
+  
   return (
     <div>
       <p></p>
       <table>
           <tbody>
             <tr>
-              <th>Station name</th>
-              <th>Address</th>
-              <th>Journeys started from station</th>
-              <th>Journeys ended to station</th>
+              {headers.map((header) => {
+                return (
+                <th>{header}</th>
+              )
+              })}
             </tr>
             <tr>
               <td>{station.name}</td>
@@ -35,7 +43,7 @@ const Station = ({station, countFromStation, onClose, countToStation}) => {
         <p></p>
         <div></div>
         <button onClick={onClose}>close</button>
-        <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+        <MapContainer center={position} zoom={13} scrollWheelZoom={false} className='map'>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -1,6 +1,11 @@
 import Journey from "./Journey"
 
 const JourneyTable = ({result}) => {
+  if (result.length===0 || result===undefined) {
+    return (
+      <p>No results</p>
+    )
+  }
   return (
     <table>
       <tbody>

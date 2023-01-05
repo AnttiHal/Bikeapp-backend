@@ -42,7 +42,7 @@ const FindJourneyView = () => {
     setDepartureStationNameToSearch(e.target.value)
   }
 
-  if (count.loading) {
+  if (count.loading ) {
     return (
       <div>loading...</div>
     )
@@ -57,6 +57,7 @@ const FindJourneyView = () => {
         departureStationNameToSearch={departureStationNameToSearch}
       />
       <h2>Journeys</h2>
+      <p>{count.data.JourneyCountFromCertainStation}</p>
       <JourneyTable result={journeys}/>
 </div>
   )

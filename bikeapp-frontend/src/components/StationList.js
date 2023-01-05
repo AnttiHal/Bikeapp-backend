@@ -42,11 +42,8 @@ const StationList = ({stationData }) => {
               <th>Station name</th>
               <th>Address</th>
               <th>Details</th>
-              
             </tr>
-            
             {stationData.allStations.map((p) => {
-            
             return (
               <tr key={p._id}>
                 <td>{p.name}</td>
