@@ -1,52 +1,18 @@
-import { useState } from "react"
-import { useQuery } from "@apollo/client"
-import { FIND_JOURNEYS_BY_DEPARTURE_STATION_NAME } from "../queries"
-import JourneyTable from "./JourneyTable"
-
-
-const FindJourneyForm = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [limit, setLimit] = useState(100)
-  // eslint-disable-next-line no-unused-vars
-  const [offset, setOffset] = useState(0)
-  // eslint-disable-next-line no-unused-vars
-  const [sort, setSort] = useState('departure_station_name')
-  const [departureStationNameToSearch, setDepartureStationNameToSearch] = useState('')
-  const [journeys, setJourneys] = useState([])
-  
-  
-  const journeysByName = useQuery(FIND_JOURNEYS_BY_DEPARTURE_STATION_NAME, {
-    variables: { departureStationNameToSearch, limit, offset, sort },
-    skip: !departureStationNameToSearch
-  })
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    setJourneys(journeysByName.data.findJourneysByDepartureStationName)
-    setDepartureStationNameToSearch('')
-  }
+const FindJourneyForm = ({handleClearClick, handleSearchClick, handleSubmit, departureStationNameToSearch}) => {
   return (
-    <div>  
+    <div>
       <form onSubmit={handleSubmit}>
         <label>Search journeys:
           <input 
             type="text" 
             value={departureStationNameToSearch}
-            onChange={(e) => {
-              e.preventDefault()
-              setDepartureStationNameToSearch(e.target.value)}}
+            onChange={handleSearchClick}
           />
         </label>
         <button type="submit">Search</button>
-        <button type="text" onClick={() => {
-          setJourneys([])
-          setDepartureStationNameToSearch('')
-          }}>Clear</button>
+        <button type="text" onClick={handleClearClick}>Clear</button>
       </form>
-      <h2>Journeys</h2>
-      
-      <JourneyTable result={journeys}/>
-</div>
+    </div>
   )
 }
 

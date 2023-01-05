@@ -71,6 +71,7 @@ type Journey {
 const resolvers = {
   Query: {
     journeyCount: async (root, args) => {
+      return Journey.collection.countDocuments({})
     },
     JourneyCountFromCertainStation: async (root, args) => {
       if (args.departure_station_name) {

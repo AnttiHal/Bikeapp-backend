@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import './App.css'
 import JourneyList from './components/JourneyList'
 import StationList from './components/StationList'
-import FindJourneyForm from './components/FindJourneyForm'
+import FindJourneyView from './components/FindJourneyView'
 import { 
   ALL_STATIONS, 
   JOURNEY_COUNT
@@ -34,7 +34,7 @@ import {
         <Routes>
           <Route path="/find-journey" element={
           <div>
-              <FindJourneyForm/>
+              <FindJourneyView/>
             </div>
           }/>
           <Route path="/journeys" element={
